@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Johnny Dinner • Calculadora RP</title>
+    <title>Restaurante Pearls 🐟 • Calculadora RP</title>
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -102,7 +102,7 @@
         class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between"
       >
         <h1 class="text-2xl font-extrabold tracking-tight">
-          Johnny Dinner • Calculadora
+          Restaurante Pearls • Calculadora
         </h1>
         <div class="flex items-center gap-2">
           <button
@@ -130,9 +130,6 @@
       >
         <div class="flex flex-wrap gap-4 items-end">
           <div class="grow">
-            <label class="block text-sm text-tg-dim mb-1"
-              >Cliente parceiro</label
-            >
             <label
               class="switch relative inline-flex items-center cursor-pointer select-none"
             >
@@ -141,24 +138,10 @@
                 class="w-10 h-6 rounded-full bg-gray-600 transition relative"
               ></span>
             </label>
-            <span class="ml-3 text-sm">Desconto de 15% no valor final</span>
           </div>
           <div>
-            <label for="kmExterno" class="block text-sm text-tg-dim mb-1"
-              >KM rodado para atendimento externo</label
-            >
             <div class="flex items-center gap-2">
-              <input
-                id="kmExterno"
-                type="number"
-                min="0"
-                step="0.1"
-                value="0"
-                class="input rounded-lg px-3 py-2 w-36 text-right"
-              />
-              <span class="text-sm text-tg-dim">km</span>
             </div>
-            <p class="text-xs text-tg-dim mt-1">R$ 500 por km</p>
           </div>
         </div>
 
@@ -194,12 +177,6 @@
             <span>Total</span
             ><span id="grandTotal" class="text-tg-green">R$ 0,00</span>
           </div>
-          <div
-            class="flex justify-between items-center text-2xl font-extrabold mt-1"
-          >
-            <span>Porcentagem Restaurante</span
-            ><span id="fees" class="text-tg-green">R$ 0,00</span>
-          </div>
         </div>
 
         <div class="mt-5">
@@ -224,7 +201,7 @@
     <footer
       class="max-w-6xl mx-auto px-4 pb-10 text-center text-xs text-tg-dim"
     >
-      Feito para RP. © Katsu Hiosaky 2025
+      Feito para RP. © Katsu 2026
     </footer>
 
     <script>
@@ -239,80 +216,86 @@
       const CONFIG = {
         categories: [
           {
-            id: "combos",
-            title: "Combos",
+            id: "combos_sparceira",
+            title: "Combos S/Parceria",
             items: [
               {
                 id: "combop",
                 label: "Combo Pequeno",
                 type: "qty",
-                price: 3000,
+                price: 2100,
               },
               {
                 id: "combom",
                 label: "Combo Medio",
                 type: "qty",
-                price: 5000,
+                price: 4200,
               },
               {
                 id: "combog",
                 label: "Combo Grande",
                 type: "qty",
-                price: 10000,
+                price: 7000,
               },
             ],
           },
           {
-            id: "comidas",
-            title: "Comidas",
+            id: "combos_parceria",
+            title: "Combos Parceria",
             items: [
               {
-                id: "pizza",
-                label: "Pizza",
+                id: "combop",
+                label: "Combo Pequeno",
                 type: "qty",
-                price: 500,
+                price: 1800,
               },
               {
-                id: "panqueca",
-                label: "Panqueca",
+                id: "combom",
+                label: "Combo Medio",
                 type: "qty",
-                price: 500,
+                price: 3600,
               },
               {
-                id: "hamburguer",
-                label: "Hamburger",
+                id: "combog",
+                label: "Combo Grande",
                 type: "qty",
-                price: 500,
-              },
-              {
-                id: "bolo",
-                label: "Bolo Vermelho",
-                type: "qty",
-                price: 500,
+                price: 7000,
               },
             ],
           },
           {
-            id: "comidas",
-            title: "Comidas",
+            id: "avulso_sparceria",
+            title: "Avulso S/parceira",
             items: [
               {
-                id: "milkshake",
-                label: "Milkshake",
+                id: "comida",
+                label: "Comida",
                 type: "qty",
-                price: 500,
+                price: 350,
               },
               {
-                id: "chopp",
-                label: "Chopp",
+                id: "bebida",
+                label: "bebida",
                 type: "qty",
-                price: 500,
+                price: 350,
+              },
+            ],
+          },
+          {
+            id: "avulso_parceria",
+            title: "Avulso Parceira",
+            items: [
+              {
+                id: "comida",
+                label: "Comida",
+                type: "qty",
+                price: 300,
               },
               {
-                id: "coca",
-                label: "Coca-Cola",
+                id: "bebida",
+                label: "Bebida",
                 type: "qty",
-                price: 500,
+                price: 300,
               },
             ],
           },
@@ -630,7 +613,7 @@
         const total = $("#grandTotal").textContent;
         const partner = state.isPartner ? "Sim" : "Não";
         return [
-          `Orçamento Johnny Dinner`,
+          `Orçamento Restaurante Pearls`,
           `Parceiro: ${partner}`,
           `KM externo: ${state.km || 0} km`,
           `Total: ${total}`,
@@ -639,7 +622,7 @@
 
       function makeDetailedInvoice() {
         const lines = [];
-        lines.push("ORÇAMENTO • JOHNNY DINNER");
+        lines.push("ORÇAMENTO • RESTAURANTE PEARLS");
         lines.push("");
 
         CONFIG.categories.forEach((cat) => {
