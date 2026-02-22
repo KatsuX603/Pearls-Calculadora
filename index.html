@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Restaurante Pearls 🐟 • Calculadora RP</title>
+    <title>Restaurante Pearls • Calculadora RP</title>
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -102,7 +102,7 @@
         class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between"
       >
         <h1 class="text-2xl font-extrabold tracking-tight">
-          Restaurante Pearls • Calculadora
+            Restaurante Pearls • Calculadora
         </h1>
         <div class="flex items-center gap-2">
           <button
@@ -129,20 +129,6 @@
         class="card rounded-xl2 bg-tg-card shadow-card ring-1 ring-tg-ring p-5 md:p-6"
       >
         <div class="flex flex-wrap gap-4 items-end">
-          <div class="grow">
-            <label
-              class="switch relative inline-flex items-center cursor-pointer select-none"
-            >
-              <input id="isPartner" type="checkbox" class="sr-only" />
-              <span
-                class="w-10 h-6 rounded-full bg-gray-600 transition relative"
-              ></span>
-            </label>
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-            </div>
-          </div>
         </div>
 
         <!-- Categorias -->
@@ -164,13 +150,6 @@
           <div class="flex justify-between">
             <span>Subtotal</span><span id="subtotal">R$ 0,00</span>
           </div>
-          <div class="flex justify-between">
-            <span>Descontos</span><span id="discounts">R$ 0,00</span>
-          </div>
-          <div class="flex justify-between">
-            <span>Atendimento externo</span><span id="extCost">R$ 0,00</span>
-          </div>
-          
           <div
             class="flex justify-between items-center text-2xl font-extrabold mt-1"
           >
@@ -185,7 +164,7 @@
             id="notes"
             rows="3"
             class="input rounded-lg w-full px-3 py-2"
-            placeholder=""
+            placeholder="Anotar informações adicionais para o orçamento"
           ></textarea>
         </div>
 
@@ -201,7 +180,7 @@
     <footer
       class="max-w-6xl mx-auto px-4 pb-10 text-center text-xs text-tg-dim"
     >
-      Feito para RP. © Katsu 2026
+      Feito para Restaurante Pearls. &copy; Katsu 2026.
     </footer>
 
     <script>
@@ -220,19 +199,19 @@
             title: "Combos S/Parceria",
             items: [
               {
-                id: "combop",
+                id: "combop_s",
                 label: "Combo Pequeno",
                 type: "qty",
                 price: 2100,
               },
               {
-                id: "combom",
+                id: "combom_s",
                 label: "Combo Medio",
                 type: "qty",
                 price: 4200,
               },
               {
-                id: "combog",
+                id: "combog_s",
                 label: "Combo Grande",
                 type: "qty",
                 price: 7000,
@@ -244,19 +223,19 @@
             title: "Combos Parceria",
             items: [
               {
-                id: "combop",
+                id: "combop_p",
                 label: "Combo Pequeno",
                 type: "qty",
                 price: 1800,
               },
               {
-                id: "combom",
+                id: "combom_p",
                 label: "Combo Medio",
                 type: "qty",
                 price: 3600,
               },
               {
-                id: "combog",
+                id: "combog_p",
                 label: "Combo Grande",
                 type: "qty",
                 price: 7000,
@@ -268,13 +247,13 @@
             title: "Avulso S/parceira",
             items: [
               {
-                id: "comida",
+                id: "comida_s",
                 label: "Comida",
                 type: "qty",
                 price: 350,
               },
               {
-                id: "bebida",
+                id: "bebida_s",
                 label: "bebida",
                 type: "qty",
                 price: 350,
@@ -286,13 +265,13 @@
             title: "Avulso Parceira",
             items: [
               {
-                id: "comida",
+                id: "comida_p",
                 label: "Comida",
                 type: "qty",
                 price: 300,
               },
               {
-                id: "bebida",
+                id: "bebida_p",
                 label: "Bebida",
                 type: "qty",
                 price: 300,
@@ -307,6 +286,7 @@
         // espaço para taxas adicionais se quiser no futuro
         feesPercent: 0,
       };
+
 
       /* =========================================================
        UTIL
@@ -400,26 +380,13 @@
        ESTADO
     ========================================================== */
       const state = {
-        isPartner: false,
-        km: 0,
         selections: {}, // id -> qty
       };
 
       /* =========================================================
        VINCULA EVENTOS
     ========================================================== */
-      // Parceiro
-      $("#isPartner").addEventListener("change", (e) => {
-        state.isPartner = e.target.checked;
-        calcAndRender();
-      });
 
-      // KM externo
-      $("#kmExterno").addEventListener("input", (e) => {
-        const v = parseFloat(e.target.value || "0");
-        state.km = Math.max(0, v);
-        calcAndRender();
-      });
 
       // Clicks nos itens
       $("#categories").addEventListener("click", (e) => {
@@ -467,10 +434,6 @@
 
       // Reset
       $("#btnReset").addEventListener("click", () => {
-        $("#isPartner").checked = false;
-        state.isPartner = false;
-        $("#kmExterno").value = 0;
-        state.km = 0;
         state.selections = {};
         // zera todos os campos
         $$("#categories [data-item-id]").forEach((row) => {
@@ -562,24 +525,10 @@
           });
         });
 
-        // Atendimento externo
-        const ext = Math.max(0, state.km) * CONFIG.externoKmPrice;
-
-        // Desconto parceiro
-        const discount = state.isPartner
-          ? (subtotal + ext) * CONFIG.partnerDiscount
-          : 0;
-
-        // Taxas
-        const fees = (subtotal + ext - discount) * (CONFIG.feesPercent || 0);
-
-        const grand = Math.max(0, subtotal + ext - discount + fees);
+        const grand = Math.max(0, subtotal);
 
         renderItems(items);
         $("#subtotal").textContent = BRL.format(subtotal);
-        $("#extCost").textContent = BRL.format(ext);
-        $("#discounts").textContent = BRL.format(discount);
-        $("#fees").textContent = BRL.format(grand * 0.5);
         $("#grandTotal").textContent = BRL.format(grand);
       }
 
@@ -611,11 +560,8 @@
     ========================================================== */
       function makeShortSummary() {
         const total = $("#grandTotal").textContent;
-        const partner = state.isPartner ? "Sim" : "Não";
         return [
-          `Orçamento Restaurante Pearls`,
-          `Parceiro: ${partner}`,
-          `KM externo: ${state.km || 0} km`,
+          `Orçamento  RESTAURANTE PEARLS`,
           `Total: ${total}`,
         ].join("\n");
       }
@@ -648,25 +594,10 @@
           }
         });
 
-        if (state.km > 0) {
-          lines.push(
-            `ATENDIMENTO EXTERNO: ${state.km} km x ${BRL.format(
-              CONFIG.externoKmPrice
-            )} = ${BRL.format(state.km * CONFIG.externoKmPrice)}`
-          );
-          lines.push("");
-        }
-
         const subtotal = $("#subtotal").textContent;
-        const ext = $("#extCost").textContent;
-        const discounts = $("#discounts").textContent;
-        const fees = $("#fees").textContent;
         const total = $("#grandTotal").textContent;
 
         lines.push(`SUBTOTAL: ${subtotal}`);
-        lines.push(`ATENDIMENTO EXTERNO: ${ext}`);
-        lines.push(`DESCONTOS: ${discounts}`);
-        if (CONFIG.feesPercent) lines.push(`TAXAS: ${fees}`);
         lines.push(`TOTAL: ${total}`);
         lines.push("");
 
