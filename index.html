@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Restaurante Pearls • Calculadora RP</title>
+    <title>LS CUSTOM • Calculadora RP</title>
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -102,7 +102,7 @@
         class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between"
       >
         <h1 class="text-2xl font-extrabold tracking-tight">
-            Restaurante Pearls • Calculadora
+            LS CUSTOM • Calculadora
         </h1>
         <div class="flex items-center gap-2">
           <button
@@ -180,7 +180,7 @@
     <footer
       class="max-w-6xl mx-auto px-4 pb-10 text-center text-xs text-tg-dim"
     >
-      Feito para Restaurante Pearls. &copy; Katsu 2026.
+      Feito para LS CUSTOM. &copy; Katsu 2026.
     </footer>
 
     <script>
@@ -193,88 +193,101 @@
        - groupId: agrupa itens que compartilham o mesmo limite
     ========================================================== */
       const CONFIG = {
-        categories: [
-          {
-            id: "combos_sparceira",
-            title: "Combos S/Parceria",
+        categories: 
+        [
+           {
+            id: "sem_parceria",
+            title: "Itens S/Parceria",
             items: [
               {
-                id: "combop_s",
-                label: "Combo Pequeno",
-                type: "qty",
-                price: 2100,
-              },
-              {
-                id: "combom_s",
-                label: "Combo Medio",
-                type: "qty",
-                price: 4200,
-              },
-              {
-                id: "combog_s",
-                label: "Combo Grande",
-                type: "qty",
-                price: 7000,
+                id: "reparo",
+                label: "Reparo",
+                type: "toggle",
+                price: 750,
               },
             ],
           },
           {
-            id: "combos_parceria",
-            title: "Combos Parceria",
+            id: "sem_parceria",
+            title: "Itens S/Parceria",
             items: [
               {
-                id: "combop_p",
-                label: "Combo Pequeno",
+                id: "kit_reparo",
+                label: "Kit de Reparo",
                 type: "qty",
-                price: 1800,
+                price: 1000,
               },
               {
-                id: "combom_p",
-                label: "Combo Medio",
+                id: "kit_descapotamento",
+                label: "Kit Descapotamento",
                 type: "qty",
-                price: 3600,
+                price: 1000,
               },
               {
-                id: "combog_p",
-                label: "Combo Grande",
+                id: "pneu",
+                label: "Pneu",
                 type: "qty",
-                price: 7000,
+                price: 250,
+              },
+              {
+                id: "CeraC",
+                label: "Cera Comum",
+                type: "qty",
+                price: 6500,
+              },
+              {
+                id: "CeraP",
+                label: "Cera Prime",
+                type: "qty",
+                price: 19000,
+              },
+              {
+                id: "CeraG",
+                label: "Cera Premium",
+                type: "qty",
+                price: 45000,
               },
             ],
           },
           {
-            id: "avulso_sparceria",
-            title: "Avulso S/parceira",
+            id: "com_parceria",
+            title: "Itens C/Parceria",
             items: [
               {
-                id: "comida_s",
-                label: "Comida",
+                id: "kit_reparo",
+                label: "Kit de Reparo",
                 type: "qty",
-                price: 350,
+                price: 900,
               },
               {
-                id: "bebida_s",
-                label: "bebida",
+                id: "kit_descapotamento",
+                label: "Kit Descapotamento",
                 type: "qty",
-                price: 350,
-              },
-            ],
-          },
-          {
-            id: "avulso_parceria",
-            title: "Avulso Parceira",
-            items: [
-              {
-                id: "comida_p",
-                label: "Comida",
-                type: "qty",
-                price: 300,
+                price: 900,
               },
               {
-                id: "bebida_p",
-                label: "Bebida",
+                id: "pneu",
+                label: "Pneu",
                 type: "qty",
-                price: 300,
+                price: 200,
+              },
+              {
+                id: "CeraC",
+                label: "Cera Comum",
+                type: "qty",
+                price: 5850,
+              },
+              {
+                id: "CeraP",
+                label: "Cera Prime",
+                type: "qty",
+                price: 17100,
+              },
+              {
+                id: "CeraG",
+                label: "Cera Premium",
+                type: "qty",
+                price: 40500,
               },
             ],
           },
@@ -561,14 +574,14 @@
       function makeShortSummary() {
         const total = $("#grandTotal").textContent;
         return [
-          `Orçamento  RESTAURANTE PEARLS`,
+          `Orçamento  LS CUSTOM`,
           `Total: ${total}`,
         ].join("\n");
       }
 
       function makeDetailedInvoice() {
         const lines = [];
-        lines.push("ORÇAMENTO • RESTAURANTE PEARLS");
+        lines.push("ORÇAMENTO • LS CUSTOM");
         lines.push("");
 
         CONFIG.categories.forEach((cat) => {
